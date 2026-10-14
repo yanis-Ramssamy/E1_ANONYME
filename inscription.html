@@ -1,126 +1,121 @@
 <!doctype html>
-<html lang="en">
+<html lang="fr">
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>WebCraft Solutions</title>
+    <title>Inscription - WebCraft Solutions</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@6.0.0-alpha.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-B/GM4XqrwHnWXNOWMbloTmrYXZg10cakYGmpfsR/bbzQ6JAJI4ihuyADKLnBgrCe" crossorigin="anonymous">
-  <link rel="stylesheet" href="css/style.css">
-</head>
+    <link rel="stylesheet" href="css/style.css">
+  </head>
   <body>
-   <header>
- <!-- navbar -->
-   
-    <nav class="navbar lg:navbar-expand" aria-label="Navigation principale">
-      <div class="container">
-        <a class="navbar-brand" href="index.html">WebCraft Solutions</a>
-        <button class="btn-icon navbar-toggler" type="button" data-bs-toggle="drawer"
-                data-bs-target="#navbarNavMenu" aria-controls="navbarNavMenu" aria-expanded="false"
-                aria-label="Ouvrir le menu">
-          <span class="navbar-toggler-icon" aria-hidden="true"></span>
-        </button>
-        <dialog class="drawer drawer-end" tabindex="-1" id="navbarNavMenu" aria-labelledby="navbarNavMenuLabel">
-          <div class="drawer-header">
-            <h5 class="drawer-title" id="navbarNavMenuLabel">Menu</h5>
-            <button type="button" class="btn-close" data-bs-dismiss="drawer" aria-label="Fermer"></button>
+
+    <header>
+      <nav class="navbar lg:navbar-expand" aria-label="Navigation principale">
+        <div class="container">
+          <a class="navbar-brand" href="index.html">WebCraft Solutions</a>
+          <button class="btn-icon navbar-toggler" type="button" data-bs-toggle="drawer"
+                  data-bs-target="#navbarNavMenu" aria-controls="navbarNavMenu" aria-expanded="false"
+                  aria-label="Ouvrir le menu">
+            <span class="navbar-toggler-icon" aria-hidden="true"></span>
+          </button>
+          <dialog class="drawer drawer-end" tabindex="-1" id="navbarNavMenu" aria-labelledby="navbarNavMenuLabel">
+            <div class="drawer-header">
+              <h5 class="drawer-title" id="navbarNavMenuLabel">Menu</h5>
+              <button type="button" class="btn-close" data-bs-dismiss="drawer" aria-label="Fermer"></button>
+            </div>
+            <div class="drawer-body">
+              <ul class="navbar-nav ms-auto">
+                <li class="nav-item"><a class="nav-link" href="index.html">Accueil</a></li>
+                <li class="nav-item"><a class="nav-link" href="index.html#projets">Projets</a></li>
+                <li class="nav-item"><a class="nav-link" href="index.html#formations">Formations</a></li>
+                <li class="nav-item"><a class="nav-link" href="inscription.html">Inscription</a></li>
+              </ul>
+            </div>
+          </dialog>
+        </div>
+      </nav>
+    </header>
+
+    <main class="container">
+
+      <div id="loader" class="loader d-none"></div>
+      <p id="message-erreur" class="message-erreur d-none"></p>
+
+      <section class="formulaire">
+        <h1>Inscription</h1>
+        <p id="message-succes" class="message-succes d-none"></p>
+
+        <form id="formulaire-inscription">
+
+          <div>
+            <label for="prenom">Prénom</label>
+            <input type="text" id="prenom" required minlength="2">
+            <span class="erreur-champ"></span>
           </div>
-          <div class="drawer-body">
-            <ul class="navbar-nav ms-auto">
-              <li class="nav-item"><a class="nav-link" href="index.html">Accueil</a></li>
-              <li class="nav-item"><a class="nav-link" href="#projets">Projets</a></li>
-              <li class="nav-item"><a class="nav-link" href="#formations">Formations</a></li>
-              <li class="nav-item"><a class="nav-link" href="inscription.html">Inscription</a></li>
-            </ul>
+
+          <div>
+            <label for="nom">Nom</label>
+            <input type="text" id="nom" required minlength="2">
+            <span class="erreur-champ"></span>
           </div>
-        </dialog>
+
+          <div>
+            <label for="email">Email</label>
+            <input type="email" id="email" required
+                   pattern="[^\s@]+@[^\s@]+\.[^\s@]+"
+                   title="Adresse email invalide (exemple : nom@mail.com)">
+            <span class="erreur-champ"></span>
+          </div>
+
+          <div>
+            <label for="telephone">Téléphone</label>
+            <input type="tel" id="telephone" required
+                   pattern="\+[0-9]{8,15}"
+                   title="Format international attendu (exemple : +33612345678)"
+                   placeholder="+33612345678">
+            <span class="erreur-champ"></span>
+          </div>
+
+          <div>
+            <label for="formation">Formation</label>
+            <select id="formation" required>
+              <option value="">Choisir une formation</option>
+            </select>
+            <span class="erreur-champ"></span>
+          </div>
+
+          <div>
+            <label for="niveau">Niveau</label>
+            <select id="niveau" required>
+              <option value="">Choisir un niveau</option>
+              <option>Débutant</option>
+              <option>Intermédiaire</option>
+              <option>Avancé</option>
+            </select>
+            <span class="erreur-champ"></span>
+          </div>
+
+          <div>
+            <label for="motivation">Motivation (50 caractères minimum)</label>
+            <textarea id="motivation" rows="4" required minlength="50"></textarea>
+            <span class="erreur-champ"></span>
+          </div>
+
+          <button type="submit" class="btn-principal">S'inscrire</button>
+        </form>
+      </section>
+
+    </main>
+
+    <footer>
+      <div class="container text-center">
+        <p>© 2026 WebCraft Solutions. Tous droits réservés.</p>
+        <a href="#">LinkedIn</a> -
+        <a href="#">GitHub</a>
       </div>
-    </nav>
+    </footer>
 
-   </header>
-<!-- formulaire -->
-   <main>
-    <section class="formulaire">
-      <h1 class="h2">Inscription à une formation</h1>
-      <p>Les champs marqués d'une étoile (*) sont obligatoires.</p>
- 
-      <div id="message-succes" class="message-succes d-none" role="status"></div>
- 
-            <form id="formulaire-inscription" novalidate>
- 
-        <div class="mb-3">
-          <label for="prenom" class="form-label">Prénom</label>
-          <input type="text" id="prenom" class="form-control" required minlength="2">
-          <span class="erreur-champ"></span>
-        </div>
- 
-        <div class="mb-3">
-          <label for="nom" class="form-label">Nom</label>
-          <input type="text" id="nom" class="form-control" required minlength="2">
-          <span class="erreur-champ"></span>
-        </div>
- 
-        <div class="mb-3">
-          <label for="email" class="form-label">Email</label>
-          <input type="email" id="email" class="form-control" required>
-          <span class="erreur-champ"></span>
-        </div>
- 
-        <div class="mb-3">
-          <label for="telephone" class="form-label">Téléphone</label>
-          <input type="tel" id="telephone" class="form-control" required
-                 pattern="\+[0-9]{8,15}" placeholder="+33612345678">
-          <span class="erreur-champ"></span>
-        </div>
- 
-        <div class="mb-3">
-          <label for="formation" class="form-label">Formation</label>
-          <select id="formation" class="form-select" required>
-            <option value="">Choisir une formation</option>
-          </select>
-          <span class="erreur-champ"></span>
-        </div>
- 
-        <div class="mb-3">
-          <label for="niveau" class="form-label">Niveau</label>
-          <select id="niveau" class="form-select" required>
-            <option value="">Choisir un niveau</option>
-            <option>Débutant</option>
-            <option>Intermédiaire</option>
-            <option>Avancé</option>
-          </select>
-          <span class="erreur-champ"></span>
-        </div>
- 
-        <div class="mb-3">
-          <label for="motivation" class="form-label">Motivation (50 caractères minimum)</label>
-          <textarea id="motivation" class="form-control" rows="4" required minlength="50"></textarea>
-          <span class="erreur-champ"></span>
-        </div>
- 
-        <button type="submit" class="btn btn-principal w-100">S'inscrire</button>
-      </form>
->
- 
-  </main>
-
-<!-- footer -->
-   
-   <footer>
-    <div class="container text-center">
-      <p> ©2026 WebCraft Solutions. Tous droits réservés.</p>
-      <ul class="liens-sociaux list-inline">
-        <li class="list-inline-item"><a href="#">LinkedIn</a></li>
-        <li class="list-inline-item"><a href="#">GitHub</a></li>
-        <li class="list-inline-item"><a href="#">Twitter</a></li>
-      </ul>
-    </div>
-  </footer>
-
-
-
-
-   
-   <script type="module" src="https://cdn.jsdelivr.net/npm/bootstrap@6.0.0-alpha.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-1a/pXj49ZQ1aHEmrJ+gMw1otqoVsYwlEnlD8mIfY2TV03r20Y0CN7uqx1tQogjPL" crossorigin="anonymous"></script>
- <script src="js/main.js"></script>
-</body>
+    <script type="module" src="https://cdn.jsdelivr.net/npm/bootstrap@6.0.0-alpha.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-1a/pXj49ZQ1aHEmrJ+gMw1otqoVsYwlEnlD8mIfY2TV03r20Y0CN7uqx1tQogjPL" crossorigin="anonymous"></script>
+    <script src="js/main.js"></script>
+  </body>
 </html>

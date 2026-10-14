@@ -260,6 +260,66 @@ function activerFiltresFormations() {
     document.getElementById("filtre-techno-formations").onchange = filtrerFormations;
 }
 
+// Message d'erreur selon le problème détecté par le navigateur
+function texteErreur(champ) {
+    if (champ.validity.valueMissing) {
+        return "Ce champ est obligatoire.";
+    }
+    if (champ.validity.tooShort) {
+        return `Minimum ${champ.minLength} caractères.`;
+    }
+    if (champ.validity.patternMismatch || champ.validity.typeMismatch) {
+        return champ.title;
+    }
+    return "";
+}
+
+function activerFormulaire() {
+    const formulaire = document.getElementById("formulaire-inscription");
+    const messageSucces = document.getElementById("message-succes");
+
+    const titres = [];
+    donneesFormations.courses.forEach(formation => {
+        titres.push(formation.title);
+    });
+    remplirSelect("formation", titres);
+
+    const champs = [
+        document.getElementById("prenom"),
+        document.getElementById("nom"),
+        document.getElementById("email"),
+        document.getElementById("telephone"),
+        document.getElementById("formation"),
+        document.getElementById("niveau"),
+        document.getElementById("motivation")
+    ];
+
+    champs.forEach(champ => {
+        // Le navigateur signale un champ invalide : on affiche notre message sous le champ
+        champ.oninvalid = function () {
+            const message = texteErreur(champ);
+            champ.setCustomValidity(message);
+            champ.nextElementSibling.textContent = message;
+        };
+
+        // À chaque saisie : on efface l'erreur puis on revérifie le champ (temps réel)
+        champ.oninput = function () {
+            messageSucces.classList.add("d-none");
+            champ.setCustomValidity("");
+            champ.nextElementSibling.textContent = "";
+            champ.checkValidity();
+        };
+    });
+
+    // Ce code ne s'exécute que si tous les champs sont valides
+    formulaire.onsubmit = function (event) {
+        event.preventDefault();
+        messageSucces.textContent = `Merci ${champs[0].value}, votre inscription est bien enregistrée !`;
+        messageSucces.classList.remove("d-none");
+        formulaire.reset();
+    };
+}
+
 async function demarrer() {
     if (document.getElementById("liste-projets")) {
         donneesProjets = await chargerDonnees(URL_PROJETS);
@@ -273,6 +333,9 @@ async function demarrer() {
     if (donneesFormations && document.getElementById("liste-formations")) {
         afficherFormations(donneesFormations.courses);
         activerFiltresFormations();
+    }
+    if (donneesFormations && document.getElementById("formulaire-inscription")) {
+        activerFormulaire();
     }
 }
 
