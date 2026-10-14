@@ -1,0 +1,83 @@
+/* ===== Couleurs (à modifier ici uniquement) ===== */
+:root {
+  --couleur-principale: #1e3a8a;
+  --couleur-clair: #f3f4f6;
+  --couleur-erreur: #dc2626;
+  --couleur-succes: #16a34a;
+}
+
+/* ===== Général ===== */
+body {
+  font-family: Arial, sans-serif;
+  color: #222;
+}
+
+section {
+  padding: 3rem 0;
+}
+
+h2 {
+  color: var(--couleur-principale);
+}
+
+
+
+/* ===== Navbar ===== */
+.navbar {
+  background-color: var(--couleur-principale);
+}
+
+.navbar-brand,
+.nav-link {
+  color: white;
+}
+
+.nav-link:hover {
+  text-decoration: underline;
+}
+
+/* ===== Bandeau d'accueil ===== */
+.hero {
+  background-color: var(--couleur-clair);
+  padding: 5rem 0;
+}
+
+/* ===== Footer ===== */
+footer {
+  background-color: var(--couleur-principale);
+  color: white;
+  padding: 2rem 0;
+}
+
+.liens-sociaux a {
+  color: white;
+}
+
+/* ===== Formulaire ===== */
+.formulaire {
+  max-width: 700px;
+  margin: 0 auto;
+}
+
+.erreur-champ {
+  color: var(--couleur-erreur);
+  font-size: 0.875rem;
+}
+
+.message-succes {
+  background-color: var(--couleur-succes);
+  color: white;
+  padding: 1rem;
+  border-radius: 5px;
+  margin-bottom: 1rem;
+}
+
+.btn-principal {
+  background-color: var(--couleur-principale);
+  color: white;
+}
+
+.btn-principal:hover {
+  background-color: #172554;
+  color: white;
+}
