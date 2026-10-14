@@ -185,17 +185,94 @@ document.onkeydown = function (event) {
     }
 };
 
+// Débounce : attend que l'utilisateur arrête de taper avant de lancer la recherche
+function debounce(func, wait) {
+    let timeout;
+    return function (...args) {
+        clearTimeout(timeout);
+        timeout = setTimeout(() => func(...args), wait);
+    };
+}
+
+// Remplir une liste déroulante avec un tableau de valeurs
+function remplirSelect(idSelect, valeurs) {
+    const select = document.getElementById(idSelect);
+    valeurs.forEach(valeur => {
+        select.innerHTML += `<option value="${valeur}">${valeur}</option>`;
+    });
+}
+
+// Filtrer les projets (recherche + techno + catégorie en même temps)
+function filtrerProjets() {
+    const recherche = document.getElementById("recherche-projets").value.toLowerCase();
+    const techno = document.getElementById("filtre-techno-projets").value;
+    const categorie = document.getElementById("filtre-categorie-projets").value;
+
+    const resultat = donneesProjets.projects.filter(projet => {
+        const okRecherche = projet.title.toLowerCase().includes(recherche)
+            || projet.client.toLowerCase().includes(recherche);
+        const okTechno = techno == "" || projet.technologies.includes(techno);
+        const okCategorie = categorie == "" || projet.category == categorie;
+        return okRecherche && okTechno && okCategorie;
+    });
+
+    afficherProjets(resultat);
+}
+
+// Filtrer les formations (recherche + catégorie + niveau + techno en même temps)
+function filtrerFormations() {
+    const recherche = document.getElementById("recherche-formations").value.toLowerCase();
+    const categorie = document.getElementById("filtre-categorie-formations").value;
+    const niveau = document.getElementById("filtre-niveau-formations").value;
+    const techno = document.getElementById("filtre-techno-formations").value;
+
+    const resultat = donneesFormations.courses.filter(formation => {
+        const okRecherche = formation.title.toLowerCase().includes(recherche)
+            || formation.instructor.toLowerCase().includes(recherche);
+        const okCategorie = categorie == "" || formation.category == categorie;
+        const okNiveau = niveau == "" || formation.level == niveau;
+        const okTechno = techno == "" || formation.technologies.includes(techno);
+        return okRecherche && okCategorie && okNiveau && okTechno;
+    });
+
+    afficherFormations(resultat);
+}
+
+// Remplir les listes et brancher les événements des projets
+function activerFiltresProjets() {
+    remplirSelect("filtre-techno-projets", donneesProjets.technologies);
+    remplirSelect("filtre-categorie-projets", donneesProjets.categories);
+
+    document.getElementById("recherche-projets").oninput = debounce(filtrerProjets, 300);
+    document.getElementById("filtre-techno-projets").onchange = filtrerProjets;
+    document.getElementById("filtre-categorie-projets").onchange = filtrerProjets;
+}
+
+// Remplir les listes et brancher les événements des formations
+function activerFiltresFormations() {
+    remplirSelect("filtre-categorie-formations", donneesFormations.categories);
+    remplirSelect("filtre-niveau-formations", donneesFormations.levels);
+    remplirSelect("filtre-techno-formations", donneesFormations.technologies);
+
+    document.getElementById("recherche-formations").oninput = debounce(filtrerFormations, 300);
+    document.getElementById("filtre-categorie-formations").onchange = filtrerFormations;
+    document.getElementById("filtre-niveau-formations").onchange = filtrerFormations;
+    document.getElementById("filtre-techno-formations").onchange = filtrerFormations;
+}
+
 async function demarrer() {
     if (document.getElementById("liste-projets")) {
         donneesProjets = await chargerDonnees(URL_PROJETS);
         if (donneesProjets) {
             afficherProjets(donneesProjets.projects);
+            activerFiltresProjets();
         }
     }
 
     donneesFormations = await chargerDonnees(URL_FORMATIONS);
     if (donneesFormations && document.getElementById("liste-formations")) {
         afficherFormations(donneesFormations.courses);
+        activerFiltresFormations();
     }
 }
 
