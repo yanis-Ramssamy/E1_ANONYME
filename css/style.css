@@ -1,15 +1,19 @@
-/* ===== Couleurs (à modifier ici uniquement) ===== */
+/* ===== Couleurs ===== */
 :root {
   --couleur-principale: #1e3a8a;
-  --couleur-clair: #f3f4f6;
-  --couleur-erreur: #dc2626;
+  --couleur-clair: #1e293b;
+  --couleur-fond: #0f172a;
+  --couleur-accent: #93c5fd;
+  --couleur-erreur: #f87171;
   --couleur-succes: #16a34a;
+  --couleur-texte: #e2e8f0;
 }
 
 /* ===== Général ===== */
 body {
   font-family: Arial, sans-serif;
-  color: #222;
+  background-color: var(--couleur-fond);
+  color: var(--couleur-texte);
 }
 
 section {
@@ -17,10 +21,12 @@ section {
 }
 
 h2 {
-  color: var(--couleur-principale);
+  color: var(--couleur-accent);
 }
 
-
+.d-none {
+  display: none !important;
+}
 
 /* ===== Navbar ===== */
 .navbar {
@@ -36,21 +42,204 @@ h2 {
   text-decoration: underline;
 }
 
-/* ===== Bandeau d'accueil ===== */
+/* ===== Hero ===== */
 .hero {
   background-color: var(--couleur-clair);
-  padding: 5rem 0;
+  padding: 4rem 0;
 }
 
-/* ===== Footer ===== */
-footer {
+.hero h1 {
+  animation: apparition 1s;
+}
+
+@keyframes apparition {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+/* ===== Recherche et filtres ===== */
+.filtres {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  margin-bottom: 1.5rem;
+}
+
+input,
+select,
+textarea {
+  padding: 0.5rem;
+  background-color: var(--couleur-clair);
+  color: var(--couleur-texte);
+  border: 1px solid var(--couleur-accent);
+  border-radius: 5px;
+}
+
+/* ===== Cartes ===== */
+.grille {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1.5rem;
+}
+
+.carte {
+  display: flex;
+  flex-direction: column;
+  background-color: var(--couleur-clair);
+  border-radius: 10px;
+  overflow: hidden;
+  transition: transform 0.3s;
+}
+
+.carte:hover {
+  transform: translateY(-5px);
+}
+
+.carte img {
+  display: block;
+  width: 100%;
+  height: 200px;
+  object-fit: cover;
+}
+
+.carte-corps {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  padding: 1rem;
+  flex: 1;
+}
+
+.carte-corps p,
+.carte-corps h3 {
+  margin: 0;
+}
+
+.carte-boutons {
+  display: flex;
+  gap: 0.5rem;
+  margin-top: auto;
+}
+
+/* ===== Badges ===== */
+.badge-techno,
+.badge-niveau,
+.badge-dispo,
+.badge-complet {
+  display: inline-block;
+  padding: 0.2rem 0.6rem;
+  margin-right: 0.25rem;
+  border-radius: 20px;
+  font-size: 0.8rem;
+  color: white;
+}
+
+.badge-techno {
+  background-color: var(--couleur-principale);
+}
+
+.badge-niveau {
+  background-color: #0e7490;
+}
+
+.badge-dispo {
+  background-color: var(--couleur-succes);
+}
+
+.badge-complet {
+  background-color: #b91c1c;
+}
+
+/* ===== Boutons ===== */
+.btn-principal {
+  display: inline-block;
+  padding: 0.5rem 1rem;
   background-color: var(--couleur-principale);
   color: white;
-  padding: 2rem 0;
+  border: none;
+  border-radius: 5px;
+  text-decoration: none;
+  cursor: pointer;
+  transition: background-color 0.3s;
 }
 
-.liens-sociaux a {
+.btn-principal:hover {
+  background-color: #172554;
   color: white;
+}
+
+.btn-principal:disabled {
+  background-color: #475569;
+  cursor: not-allowed;
+}
+
+/* ===== Loader et erreur ===== */
+.loader {
+  width: 50px;
+  height: 50px;
+  margin: 2rem auto;
+  border: 5px solid var(--couleur-clair);
+  border-top-color: var(--couleur-accent);
+  border-radius: 50%;
+  animation: rotation 1s linear infinite;
+}
+
+@keyframes rotation {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.message-erreur {
+  margin: 1rem auto;
+  padding: 1rem;
+  max-width: 700px;
+  background-color: var(--couleur-erreur);
+  color: #450a0a;
+  border-radius: 5px;
+  text-align: center;
+}
+
+/* ===== Modal ===== */
+.modal-perso {
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  padding-top: 50px;
+  overflow: auto;
+  background-color: rgba(0, 0, 0, 0.7);
+  z-index: 1050;
+}
+
+.modal-contenu {
+  width: 90%;
+  max-width: 600px;
+  margin: 0 auto 2rem auto;
+  padding: 1.5rem;
+  background-color: var(--couleur-clair);
+  border-radius: 10px;
+}
+
+.modal-contenu img {
+  width: 100%;
+  height: 200px;
+  object-fit: cover;
+}
+
+.modal-fermer {
+  float: right;
+  background: none;
+  border: none;
+  color: white;
+  font-size: 2rem;
+  cursor: pointer;
 }
 
 /* ===== Formulaire ===== */
@@ -59,7 +248,25 @@ footer {
   margin: 0 auto;
 }
 
+.formulaire label,
+.formulaire input,
+.formulaire select,
+.formulaire textarea {
+  display: block;
+  width: 100%;
+}
+
+.formulaire .invalide {
+  border-color: var(--couleur-erreur);
+}
+
+.formulaire .valide {
+  border-color: var(--couleur-succes);
+}
+
 .erreur-champ {
+  display: block;
+  min-height: 1.3rem;
   color: var(--couleur-erreur);
   font-size: 0.875rem;
 }
@@ -72,12 +279,28 @@ footer {
   margin-bottom: 1rem;
 }
 
-.btn-principal {
+/* ===== Footer ===== */
+footer {
   background-color: var(--couleur-principale);
+  color: white;
+  padding: 2rem 0;
+}
+
+footer a {
   color: white;
 }
 
-.btn-principal:hover {
-  background-color: #172554;
-  color: white;
+/* ===== Tablette et ordinateur (768px et plus) ===== */
+@media (min-width: 768px) {
+  .filtres {
+    flex-direction: row;
+  }
+
+  .filtres input {
+    flex: 1;
+  }
+
+  .grille {
+    grid-template-columns: repeat(3, 1fr);
+  }
 }
